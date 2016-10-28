@@ -1,0 +1,3 @@
+jdbc.url=insert_your_url
+jdbc.user=username
+jdbc.password=password
