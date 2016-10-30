@@ -9,11 +9,7 @@ import java.sql.SQLException;
 
 public class DataBaseConnector {
     private static final Logger log = LoggerFactory.getLogger(DataBaseConnector.class);
-    private static Connection connection;
-
-    static {
-        openConnection();
-    }
+    private static Connection connection = null;
 
     private DataBaseConnector() {
 
@@ -26,7 +22,7 @@ public class DataBaseConnector {
             connection = DriverManager.getConnection(PropertiesReader.getConnectionString(),
                     PropertiesReader.getUser(), PropertiesReader.getPassword());
             if (!connection.isClosed())
-                log.info("Connection created.");
+                log.debug("Connection created.");
         } catch (SQLException e) {
             log.error("Connection failed.\n" + e.getMessage());
             closeConnection();
@@ -36,17 +32,20 @@ public class DataBaseConnector {
     }
 
     public static Connection getConnection() {
-        return connection != null ? connection : null;
+        if (connection == null) {
+            openConnection();
+        }
+        return connection;
     }
 
     public static void closeConnection() {
         if (connection != null) {
             try {
                 connection.close();
-                log.info("Connection closed.");
+                log.debug("Connection closed.");
             } catch (SQLException e) {
                 log.error("Failed to close connection.\n" + e.getMessage());
             }
-        }
+        } else log.debug("Connection is null, nothing to close.");
     }
 }

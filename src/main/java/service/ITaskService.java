@@ -3,13 +3,12 @@ package service;
 import entity.task.StateType;
 import entity.task.Task;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface ITaskService {
     Task getById(final Integer id);
 
-    List<Task> getAll() throws SQLException;
+    List<Task> getAll();
 
     List<Task> getAllTasksByState(final StateType type);
 

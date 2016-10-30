@@ -84,7 +84,7 @@ public class TaskDaoImpl implements ITaskDao {
     @Override
     public boolean insert(Task entity) throws SQLException {
         if (entity == null) {
-            throw new SQLException("Cannot insert entity, the entity has already exists. Use 'update' method.");
+            throw new SQLException("Could not insert an entity, the entity is null.");
         }
 
         String query = new StringBuilder()
@@ -106,13 +106,7 @@ public class TaskDaoImpl implements ITaskDao {
     @Override
     public boolean update(Task entity) throws SQLException {
         if (entity == null) {
-            throw new SQLException("Cannot update entity, the entity is null.");
-        }
-
-        Task task = this.getById(entity.getId());
-
-        if (task == null) {
-            throw new SQLException("Cannot update entity, the task with given ID not found.");
+            throw new SQLException("Could not update an entity, because it is null.");
         }
 
         String query = new StringBuilder()
@@ -147,7 +141,7 @@ public class TaskDaoImpl implements ITaskDao {
             st.close();
 
             return rows == 1;
-        } else throw new SQLException("Cannot delete entity, ID is null.");
+        } else throw new SQLException("Could not delete an entity, ID is null.");
     }
 
     private Task getFilledTask(final ResultSet rs) throws SQLException {

@@ -15,7 +15,7 @@ public class PropertiesReader {
         prop = new Properties();
         try {
             prop.load(PropertiesReader.class.getResourceAsStream(PROP_PATH));
-            log.info("db properties loaded.");
+            log.debug("db properties loaded.");
         } catch (Exception e) {
             log.error("Failed to load db properties.\n" + e.getMessage());
         }

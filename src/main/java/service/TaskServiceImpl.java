@@ -14,7 +14,7 @@ import java.util.List;
 public class TaskServiceImpl implements ITaskService {
     private static final Logger log = LoggerFactory.getLogger(TaskServiceImpl.class);
 
-    // We can replace this with Spring DI in future.
+    // For example we can replace this with Spring DI in future.
     private ITaskDao taskDao;
 
     private Connection connection;
@@ -46,7 +46,7 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public List<Task> getAll() throws SQLException {
+    public List<Task> getAll() {
         try {
             connection.setAutoCommit(false);
             List<Task> tasks = taskDao.getAll();
@@ -129,7 +129,7 @@ public class TaskServiceImpl implements ITaskService {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-            log.error("Error: cannot rollbackTransaction transaction.\n" + ex.getMessage());
+            log.error("Error: could not rollback a transaction.\n" + ex.getMessage());
         }
     }
 
@@ -137,7 +137,7 @@ public class TaskServiceImpl implements ITaskService {
         try {
             connection.setAutoCommit(true);
         } catch (SQLException e) {
-            log.error("Error: cannot setAutoCommit(true).\n" + e.getMessage());
+            log.error("Error: could not set auto commit to true.\n" + e.getMessage());
         }
     }
 }
